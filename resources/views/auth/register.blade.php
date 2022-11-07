@@ -45,12 +45,20 @@
                     </div>
                 </div>
                 <div class="mb-3">
-{{--                    @dd(old('gender')== 0?'nam':'nu')--}}
-                    <select class="form-control" name="gender">
-                            <option  @if(old('gender')=='') selected @endif  >Lựa chọn giới tính</option>
+                    <div class="input-group">
+                        <select class="form-control select2" style="width: 100%;" name="gender">
+                            <option  @if(old('gender')=='') selected @endif>Lựa chọn giới tính</option>
                             <option value="0" @if(old('gender')==0) selected @endif>Nam</option>
                             <option value="1"  @if(old('gender')==1) selected @endif>Nữ</option>
-                    </select>
+                        </select>
+                    </div>
+{{--                    <div class="input-group">--}}
+{{--                        <select style="width: 100%;">--}}
+{{--                            <option  @if(old('gender')=='') selected @endif  >Lựa chọn giới tính</option>--}}
+{{--                            <option value="0" @if(old('gender')==0) selected @endif>Nam</option>--}}
+{{--                            <option value="1"  @if(old('gender')==1) selected @endif>Nữ</option>--}}
+{{--                        </select>--}}
+{{--                    </div>--}}
                     <div>
                         @error('gender')
                         <div class="text text-danger">{{ $message }}</div>

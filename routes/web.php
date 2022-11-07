@@ -21,15 +21,19 @@ Route::get('/', function () {
 
 
 Route::namespace('Auth')->group(function () {
-    Route::group(['prefix'=>'users','as'=>'users.'],function (){
-        Route::get('register', [UserController::class, 'create'])->name('register');
-        Route::post('register', [UserController::class, 'store'])->name('register');
-        Route::get('', [UserController::class, 'index'])->name('index');
-        Route::get('/edit/{id}', [UserController::class, 'edit'])->name('edit');
-        Route::post('/update/{id}', [UserController::class, 'update'])->name('update');
-        Route::post('delete/{id}',  [LoginController::class,'delete'])->name('delete');
         Route::get('login', [LoginController::class,'create'])->name('login');
         Route::post('login',  [LoginController::class,'login'])->name('login');
-    });
 });
-Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
+
+Route::group(['prefix'=>'users','as'=>'users.','middleware'=>'auth'],function (){
+    Route::get('register', [UserController::class, 'create'])->name('register');
+    Route::post('register', [UserController::class, 'store'])->name('register');
+    Route::get('', [UserController::class, 'index'])->name('index');
+    Route::get('/edit/{id}', [UserController::class, 'edit'])->name('edit');
+    Route::post('/update/{id}', [UserController::class, 'update'])->name('update');
+    Route::post('delete/{id}',  [UserController::class,'destroy'])->name('delete');
+    Route::get('logout',  [UserController::class,'logout'])->name('logout');
+});
+Route::get('dashboard',[DashboardController::class,'index'])->middleware(('auth'))->name('dashboard');
+
+

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -80,7 +81,10 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
-//        $user = User::update($i)
+        $user = User::find($id);
+        if($user) $user->update($data);
+        @dd(1);
+        return redirect()->route('users.index');
     }
 
     /**
@@ -92,7 +96,19 @@ class UserController extends Controller
     public function destroy($id)
     {
             $user = User::find($id);
-            if($user) $user->delete();
-            return redirect()->route();
+            if($user)
+            {
+                $user->delete();
+                return view('users.list');
+            }
+    }
+
+    public function logout()
+    {
+        if(Auth::check())
+        {
+            Auth::logout();
+            return view('auth.login');
+        }
     }
 }

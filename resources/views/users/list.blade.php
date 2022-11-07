@@ -1,4 +1,20 @@
 @extends('layout.master')
+@section('content-header')
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Người dùng</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item active">{{ Breadcrumbs::render('users.index') }}</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+@endsection
 @section('content')
     <div class="input-group mb-3">
         <input class="form-control border-end-0 border rounded-pill" type="text" value="Tìm kếm người dùng... " id="example-search-input">
@@ -36,22 +52,28 @@
                         <td>Nu</td>
                     @else
                         <td>
-                           Nam
+                            Nam
                         </td>
                     @endif
                     <td>
                         {{$user->phone}}
                     </td>
                     <td>
-                        <a href="{{route('users.edit',$user->id)}}" class="btn btn-primary">
-                            Sửa
-                        </a>
-                        <a href="{{route('users.delete',$user->id)}}"  class="btn btn-danger">
-                            Xóa
-                        </a>
+                        <form method="post" action="{{route('users.delete',$user->id)}}" >
+                            <a href="{{route('users.edit',$user->id)}}" class="btn btn-primary">
+                                Sửa
+                            </a>
+
+                            <button class="btn btn-danger">
+                                @csrf
+{{--                                @method('delete')--}}
+                                Xóa
+                            </button>
+                        </form>
                     </td>
                 </tr>
             @endforeach
+{{--        @endif--}}
         </tbody>
     </table>
 @endsection

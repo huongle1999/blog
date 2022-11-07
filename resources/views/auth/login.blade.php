@@ -5,14 +5,14 @@
 @section('content')
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{route('users.login')}}"><b>Admin</b>LTE</a>
+            <a href="{{route('login')}}"><b>Admin</b>LTE</a>
         </div>
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
 
-                <form action="{{route('users.login')}}" method="post">
+                <form action="{{route('login')}}" method="post">
                     @csrf
                     <div class="mb-3">
                         <div class="input-group">

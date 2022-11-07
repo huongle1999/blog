@@ -44,7 +44,7 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-      @include('layout.content-header')
+      @yield('content-header')
         <!-- Main content -->
         @yield('content')
         <!-- /.content -->
